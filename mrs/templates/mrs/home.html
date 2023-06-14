@@ -1,0 +1,130 @@
+{% extends "mrs/base.html" %}
+
+{% block style %}
+<style>
+.bg{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    }
+
+.bg-text{
+    /* background-color: rgba(0,0,0, 0.4); */
+    color: white;
+    font-weight: bold;
+    font-size: 40px;
+    width: 50%;
+    padding: 40px;
+    text-align: center;
+
+}
+@media (max-width: 768px) {
+    .bg-text{
+      font-size: 30px;
+      width: 75%;
+    }
+  }
+
+</style>
+{% endblock %}
+
+
+{% block image %}
+    <div class="bg d-flex align-items-center">
+        <div class="bg-text">Take Your Binge Watching Next Level</div>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+<div style="padding:20px">
+    <h4 class="cardsTitle">Recent Releases</h4>
+    <div class="scrolling-wrapper-flexbox">
+        {% for i in recent %}
+        <div class="card">
+            <a href="{% url 'watch_movie' i.id %}">
+                <img src="{{i.img_url}}" class="rounded imgCard" alt="{{i.title}}">
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+ 
+
+<div style="padding:20px">
+    <h4 class="cardsTitle">Most Popular</h4>
+    <div class="scrolling-wrapper-flexbox">
+        {% for j in popular %}
+        <div class="card">
+            <a href="{% url 'watch_movie' j.id %}">
+                <img src="{{j.img_url}}" class="rounded imgCard" alt="{{j.title}}">
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+<div style="padding:20px">
+    <h4 class="cardsTitle">Movies like {{top_pick}}</h4>
+    <div class="scrolling-wrapper-flexbox">
+        {% for i in like_top_pick %}
+        <div class="card">
+            <a href="{% url 'watch_movie' i.id %}">
+                <img src="{{i.img_url}}" class="rounded imgCard" alt="{{i.title}}">
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% if based_ratings != None %}
+<div style="padding:20px">
+    <h4 class="cardsTitle">Based on your Ratings</h4>
+    <div class="scrolling-wrapper-flexbox">
+        {% for k in based_ratings %}
+        <div class="card">
+            <a href="{% url 'watch_movie' k.id %}">
+                <img src="{{k.img_url}}" class="rounded imgCard" alt="{{k.title}}">
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+
+{% for k,v in picked_genres.items %}
+    <div style="padding:20px">
+        <h4 class="cardsTitle">{{k}}</h4>
+        <div class="scrolling-wrapper-flexbox">
+            {% for i in v %}
+            <div class="card">
+                    <a href="{% url 'watch_movie' i.id %}">
+                        <img src="{{i.img_url}}" class="rounded imgCard" alt="{{i.title}}">
+                    </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endfor %}
+
+
+{% if watched != None %}
+<div style="padding:20px">
+    <h4 class="cardsTitle">Movies you have watched</h4>
+    <div class="scrolling-wrapper-flexbox">
+        {% for k in watched %}
+        <div class="card">
+                <a href="{% url 'watch_movie' k.id %}">
+                    <img src="{{k.img_url}}" class="rounded imgCard" alt="{{k.title}}">
+                </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+{% endblock %} 

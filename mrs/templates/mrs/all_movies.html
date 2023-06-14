@@ -1,0 +1,22 @@
+{% extends "mrs/base.html" %}
+
+{% block content %}
+
+<h4 class="cardsTitle">All Movies : 
+    <span style="text-align: right;">{{no_movies}}</span>
+</h4>
+{% for y,m in movies_by_year.items %}
+    <div style="padding:20px">
+        <h4 class="cardsTitle">{{y}}</h4>
+        <div class="scrolling-wrapper-flexbox">
+            {% for i in m %}
+            <div class="card">
+                <a href="{% url 'watch_movie' i.id %}">
+                    <img src="{{i.img_url}}" class="rounded imgCard" alt="{{i.title}}">
+                </a>
+            </div>
+            {% endfor %}
+        </div>  
+    </div>  
+{% endfor %}
+{% endblock %}

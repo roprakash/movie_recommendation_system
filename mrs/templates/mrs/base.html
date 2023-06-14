@@ -1,0 +1,138 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+    <title>MRS</title>
+    <link rel="icon" type="image/png" href="{% static 'mrs/logo-removebg-preview.png' %}" style="width:max-content;"> 
+
+    <link rel="stylesheet" type="text/css" href="{% static 'mrs/style.css' %}">
+    
+    <style>
+
+    .scrolling-wrapper-flexbox {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .card {
+      padding: 10px 5px;
+      flex: 0 0 auto;
+      background-color: rgba(0, 0, 0, 0.25);
+      margin: 0;
+    }
+
+    body, html{
+      margin: 0;
+      height: 100%;
+      width: 100%;
+      /* Center and scale the image nicely */
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-image: url("{% static 'mrs/bg_img.jpg' %}");
+      background-size: cover;
+    }
+
+    @media (min-width: 768px) {
+      .imgCard{
+          width: 200px;
+          height: 250px;
+      }
+      .movieImg{
+        width: 50%;
+        height: 100%;
+      }
+      .title{
+        font-size: 65px;
+        font-weight: 10;
+        margin: 10px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .imgCard {
+        width: 100px;
+        height: 125px;
+      } 
+      .movieImg{
+        width: 100%;
+        height: 100%;
+      }
+      .cardsTitle{
+          font-size: 15px;
+      }
+      .title{
+        font-size: 45px;
+        font-weight: 10;
+        margin: 10px;
+      }
+      .bg-text{
+        font-size: 20px;
+      }
+    }
+
+    </style>
+
+    {% block style %}
+    {% endblock %}
+
+  </head>
+  
+  <body style="background-color: black; color: white;"> 
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark" >
+        <a class="navbar-brand" href="{% url 'home' %}">
+            <img src="{% static 'mrs/logo-removebg-preview.png' %}" width=35 height=35 alt="MRS" class="d-inline-block align-centre"> <span>MRS</span>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'all_movies' %}">All Movies</a>
+            </li>
+
+            {% if user.is_authenticated %}
+          </ul>
+                <h6 class="mr-sm-2">Hi {{user.username}}!</h6>
+                <form action="{% url 'logoutuser' %}" method="POST" class="form-inline my-2 my-lg-0">
+                    {% csrf_token %}
+                      <button class="btn btn-outline-dark btn-sm" type="submit">Logout🏃</button>
+                </form>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'signupuser' %}">Signup</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'loginuser' %}">Login</a>
+                </li>
+              </ul>
+            {% endif %} 
+        </div>
+      </nav>
+
+    {% block image %}
+
+    {% endblock %}
+
+    <div class="container" style="padding-bottom: 250px; padding-top: 100px;">
+      {% block content %}
+    
+      {% endblock %}
+    </div>
+ 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+  </body>
+</html>
